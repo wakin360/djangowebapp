@@ -11,6 +11,14 @@
     |
     <a href="{% url 'student_dashboard' %}">Student Dashboard</a>
 
+    {% if user.is_authenticated %}
+    <p>Logged in as: {{ user.username }}</p>
+    <form method="post" action="{% url 'logout' %}">
+        {% csrf_token %}
+        <button type="submit">Logout</button>
+    </form>
+    {% endif %}
+
     <hr>
 
 {% for student in students %}
