@@ -1,5 +1,4 @@
 from django.http import JsonResponse
-
 from .models import Student
 
 
@@ -17,6 +16,7 @@ def api_student_list(request):
         )
 
     students = Student.objects.all()
+
     data = [
         {
             "id": student.id,
@@ -28,4 +28,6 @@ def api_student_list(request):
         for student in students
     ]
 
-    return JsonResponse({"count": len(data), "students": data})
+    return JsonResponse(
+        {"count": len(data), "students": data}
+    )

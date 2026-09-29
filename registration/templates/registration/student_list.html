@@ -4,49 +4,69 @@
     <title>Student List</title>
 </head>
 <body>
+{% if user.is_authenticated %}
+<p>Logged in as: {{ user.username }}</p>
+
+<form method="post" action="{% url 'logout' %}">
+    {% csrf_token %}
+    <button type="submit">Logout</button>
+</form>
+{% endif %}
+
 
     <h1>Registered Students</h1>
 
-    <a href="{% url 'student_create' %}">Register Student</a>
-    |
-    <a href="{% url 'student_dashboard' %}">Student Dashboard</a>
-
-    {% if user.is_authenticated %}
-    <p>Logged in as: {{ user.username }}</p>
-    <form method="post" action="{% url 'logout' %}">
-        {% csrf_token %}
-        <button type="submit">Logout</button>
-    </form>
-    {% endif %}
-
-    <hr>
-
-{% for student in students %}
-
-    <p>
-        <strong>Name:</strong> {{ student.student_name }}<br>
-        <strong>Program:</strong> {{ student.program }}<br>
-        <strong>Year Level:</strong> {{ student.year_level }}<br>
-        <strong>Email:</strong> {{ student.email }}
-    </p>
-
-    <a href="{% url 'student_update' student.pk %}">
-        Edit
+    <a href="{% url 'student_create' %}">
+        Register Student
     </a>
 
-    |
-
-    <a href="{% url 'student_delete' student.pk %}">
-        Delete
+     <a href="{% url 'student_dashboard' %}">
+                    Student Dashboard
     </a>
 
-    <hr>
+    <table border="1">
+        <tr>
+            <th>ID</th>
+            <th>Name</th>
+            <th>Program</th>
+            <th>Year Level</th>
+            <th>Email</th>
+            <th>Actions</th>
+        </tr>
 
-{% empty %}
+        {% for student in students %}
+        <tr>
+            <td>{{ student.id }}</td>
+            <td>{{ student.student_name }}</td>
+            <td>{{ student.program }}</td>
+            <td>{{ student.year_level }}</td>
+            <td>{{ student.email }}</td>
 
-    <p>No students registered yet.</p>
+            <td>
+                <a href="{% url 'student_update' student.id %}">
+                    Edit
+                </a>
 
-{% endfor %}
+                <a href="{% url 'student_delete' student.id %}">
+                    Delete
+                </a>
+
+               
+
+            </td>
+        </tr>
+
+        {% empty %}
+
+        <tr>
+            <td colspan="6">
+                No students registered.
+            </td>
+        </tr>
+
+        {% endfor %}
+
+    </table>
 
 </body>
 </html>

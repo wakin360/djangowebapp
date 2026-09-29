@@ -2,6 +2,9 @@ from django.urls import path
 from . import views
 
 urlpatterns = [
-    path("dynamic-form/", views.dynamic_form, name="dynamic_form"),
+    path(
+        "studentform/",
+        views.student_form,
+        name="dynamic_form",
+    ),
 ]
-

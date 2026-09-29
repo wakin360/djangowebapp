@@ -2,10 +2,14 @@ from django.urls import path
 from . import views
 
 urlpatterns = [
-    path('', views.student_list, name='student_list'),
+    path(
+        '',
+        views.student_list,
+        name='student_list'
+    ),
 
     path(
-        'add/',
+        'create/',
         views.student_create,
         name='student_create'
     ),
@@ -21,10 +25,10 @@ urlpatterns = [
         views.student_delete,
         name='student_delete'
     ),
-
     path(
         'dashboard/',
         views.student_dashboard,
         name='student_dashboard'
     ),
+
 ]
